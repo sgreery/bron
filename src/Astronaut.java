@@ -15,6 +15,10 @@ public class Astronaut {
     public int width;
     public int height;
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
+    public boolean left;
+    public boolean up;
+    public boolean right;
+    public boolean down;
 
 
     // METHOD DEFINITION SECTION
@@ -33,11 +37,27 @@ public class Astronaut {
         width = 60;
         height = 60;
         isAlive = true;
+        up = false;
+        down= false;
+        left = false;
+        right = false;
  
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
+        if(up == true){
+            dy = -5;
+        }
+        if(down == true){
+            dy = 5;
+        }
+        if(left == true){
+            dx = -5;
+        }
+        if(right == true){
+            dx = 5;
+        }
         xpos = xpos + dx;
         ypos = ypos + dy;
  

@@ -168,7 +168,56 @@ public class BasicGameApp implements Runnable, KeyListener {
 		System.out.println(e.getKeyChar());
 		System.out.println(e.getKeyCode());
 		//hw: Identify the key codes for up, down, left, and right arrow keys.
+		if(e.getKeyCode() == 38){
+			System.out.println("Going up");
+			astro.up = true;
+			astro.down = false;
+			astro.left = false;
+			astro.right = false;
+		}
+		if(e.getKeyCode() == 37){
+			System.out.println("Going left");
+			astro.dx = -5;
+			astro.dy = 0;
+			astro.left = true;
+			astro.right = false;
+			astro.up = false;
+			astro.down = false;
+		}
+		if(e.getKeyCode() == 39){
+			System.out.println("Going right");
+			astro.dx = 5;
+			astro.dy = 0;
+			astro.right = true;
+			astro.left = false;
+			astro.up = false;
+			astro.down = false;
+		}
+		if(e.getKeyCode() == 40){
+			System.out.println("Going down");
+			astro.dy = 5;
+			astro.dx = 0;
+			astro.up = false;
+			astro.down = true;
+			astro.left = false;
+			astro.right = false;
+		}
+		if(astro.up == true && astro.left == true){
+			astro.dx = -5;
+			astro.dy = -5;
 
+		}
+		if(astro.down == true && astro.left == true){
+			astro.dx = -5;
+			astro.dy = 5;
+
+		}
+		if(e.getKeyCode() == 83){
+			astro.up = false;
+			astro.down = false;
+			astro.left = false;
+			astro.right = false;
+		}
 	}
 
 	@Override
