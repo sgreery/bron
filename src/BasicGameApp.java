@@ -43,6 +43,7 @@ public class BasicGameApp implements Runnable, KeyListener {
    
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
+	public Image background;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -69,6 +70,7 @@ public class BasicGameApp implements Runnable, KeyListener {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
 		astro = new Astronaut(10,100);
+		background = Toolkit.getDefaultToolkit().getImage("bronincar.jpg"); //load the picture
 
 
 	}// BasicGameApp()
@@ -150,7 +152,9 @@ public class BasicGameApp implements Runnable, KeyListener {
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
       //draw the image of the astronaut
+		g.drawImage(background, 0, 0, WIDTH, HEIGHT,null);
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+
 
 		g.dispose();
 
