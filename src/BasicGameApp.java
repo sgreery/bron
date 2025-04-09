@@ -49,6 +49,8 @@ public class BasicGameApp implements Runnable, KeyListener {
    //These are things that are made up of more than one variable type
 	private Astronaut astro;
 
+	//step 1:make astro array and say how big it is
+Astronaut [] astronautsArray = new Astronaut[10];
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -70,6 +72,9 @@ public class BasicGameApp implements Runnable, KeyListener {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
 		astro = new Astronaut(10,100);
+		for(int x = 0; x< astronautsArray.length; x++){
+			astronautsArray[x] = new Astronaut((int)(Math.random()*1000),(int)(Math.random()*700));
+		}
 		background = Toolkit.getDefaultToolkit().getImage("bronincar.jpg"); //load the picture
 
 
@@ -99,6 +104,10 @@ public class BasicGameApp implements Runnable, KeyListener {
 	{
       //calls the move( ) code in the objects
 		astro.move();
+		//step 3: move astro array
+		for(int y=0; y< astronautsArray.length; y++){
+			astronautsArray[y].move();
+		}
 
 	}
 	
@@ -154,6 +163,11 @@ public class BasicGameApp implements Runnable, KeyListener {
       //draw the image of the astronaut
 		g.drawImage(background, 0, 0, WIDTH, HEIGHT,null);
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+		//step 4: render astro array
+		for(int z = 0; z < astronautsArray.length; z++){
+			g.drawImage(astroPic, astronautsArray[z].xpos, astronautsArray[z].ypos, astro.width, astro.height, null);
+		}
+
 
 
 		g.dispose();

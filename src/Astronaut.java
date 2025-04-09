@@ -32,7 +32,7 @@ public class Astronaut {
     public Astronaut(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =1;
+        dx =0;
         dy =0;
         width = 60;
         height = 60;
