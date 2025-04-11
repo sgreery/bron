@@ -108,7 +108,15 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		for(int y=0; y< astronautsArray.length; y++){
 			astronautsArray[y].move();
 		}
+		collisions();
 
+	}
+	public void collisions(){
+		for(int b = 0; b< astronautsArray.length; b++){
+			if(astro.rec.intersects(astronautsArray[b].rec)){
+				System.out.println("crashing ");
+			}
+		}
 	}
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds

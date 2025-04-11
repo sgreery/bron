@@ -19,6 +19,7 @@ public class Astronaut {
     public boolean up;
     public boolean right;
     public boolean down;
+    public Rectangle rec;
 
 
     // METHOD DEFINITION SECTION
@@ -41,6 +42,7 @@ public class Astronaut {
         down= false;
         left = false;
         right = false;
+        rec = new Rectangle(xpos, ypos, width, height);
  
     } // constructor
 
@@ -65,6 +67,7 @@ public class Astronaut {
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
+        rec = new Rectangle(xpos, ypos, width, height);
  
     }
 }
