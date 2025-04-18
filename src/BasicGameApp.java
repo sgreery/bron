@@ -47,10 +47,10 @@ public class BasicGameApp implements Runnable, KeyListener {
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Astronaut astro;
+//	private Astronaut astro;
 
 	//step 1:make astro array and say how big it is
-Astronaut [] astronautsArray = new Astronaut[10];
+Astronaut [] astronautsArray = new Astronaut[2];
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -71,7 +71,7 @@ Astronaut [] astronautsArray = new Astronaut[10];
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
-		astro = new Astronaut(10,100);
+//		astro = new Astronaut(10,100);
 		for(int x = 0; x< astronautsArray.length; x++){
 			astronautsArray[x] = new Astronaut((int)(Math.random()*1000),(int)(Math.random()*700));
 		}
@@ -103,7 +103,7 @@ Astronaut [] astronautsArray = new Astronaut[10];
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		astro.move();
+//		astro.move();
 		//step 3: move astro array
 		for(int y=0; y< astronautsArray.length; y++){
 			astronautsArray[y].move();
@@ -112,11 +112,11 @@ Astronaut [] astronautsArray = new Astronaut[10];
 
 	}
 	public void collisions(){
-		for(int b = 0; b< astronautsArray.length; b++){
-			if(astro.rec.intersects(astronautsArray[b].rec)){
-				System.out.println("crashing ");
-			}
-		}
+//		for(int b = 0; b< astronautsArray.length; b++){
+//			if(astro.rec.intersects(astronautsArray[b].rec)){
+//				System.out.println("crashing ");
+//			}
+//		}
 	}
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
@@ -170,10 +170,10 @@ Astronaut [] astronautsArray = new Astronaut[10];
 
       //draw the image of the astronaut
 		g.drawImage(background, 0, 0, WIDTH, HEIGHT,null);
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+//		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 		//step 4: render astro array
 		for(int z = 0; z < astronautsArray.length; z++){
-			g.drawImage(astroPic, astronautsArray[z].xpos, astronautsArray[z].ypos, astro.width, astro.height, null);
+//			g.drawImage(astroPic, astronautsArray[z].xpos, astronautsArray[z].ypos, astro.width, astro.height, null);
 		}
 
 
@@ -196,49 +196,49 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		//hw: Identify the key codes for up, down, left, and right arrow keys.
 		if(e.getKeyCode() == 38){
 			System.out.println("Going up");
-			astro.left = false;
-			astro.right = false;
-			astro.down = false;
-			astro.up = true;
+//			astro.left = false;
+//			astro.right = false;
+//			astro.down = false;
+//			astro.up = true;
 		}
 		if(e.getKeyCode() == 37){
 			System.out.println("Going left");
-			astro.left = true;
+//			astro.left = true;
 		}
 		if(e.getKeyCode() == 39){
 			System.out.println("Going right");
-			astro.right = true;
-			astro.left = false;
-			astro.up = false;
-			astro.down = false;
+//			astro.right = true;
+//			astro.left = false;
+//			astro.up = false;
+//			astro.down = false;
 
 
 		}
 		if(e.getKeyCode() == 40){
 			System.out.println("Going down");
-			astro.down = true;
-			astro.left = false;
-			astro.right = false;
-			astro.up = false;
+//			astro.down = true;
+//			astro.left = false;
+//			astro.right = false;
+//			astro.up = false;
 
 		}
-		if(astro.up == true && astro.left == true){
-			astro.dx = -5;
-			astro.dy = -5;
+//		if(astro.up == true && astro.left == true){
+//			astro.dx = -5;
+//			astro.dy = -5;
+//
+//		}
+//		if(astro.down == true && astro.left == true){
+//			astro.dx = -5;
+//			astro.dy = 5;
+//
+//		}
 
-		}
-		if(astro.down == true && astro.left == true){
-			astro.dx = -5;
-			astro.dy = 5;
-
-		}
-
-		if(e.getKeyCode() == 83){
-			astro.up = false;
-			astro.down = false;
-			astro.left = false;
-			astro.right = false;
-		}
+//		if(e.getKeyCode() == 83){
+//			astro.up = false;
+//			astro.down = false;
+//			astro.left = false;
+//			astro.right = false;
+//		}
 	}
 
 	@Override
@@ -246,20 +246,20 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		System.out.println("released");
 		System.out.println(e.getKeyCode());
 		if(e.getKeyCode() == 38){
-			astro.up = false;
-			astro.dy = 0;
+//			astro.up = false;
+//			astro.dy = 0;
 		}
 		if(e.getKeyCode() == 40){
-			astro.down = false;
-			astro.dy = 0;
+//			astro.down = false;
+//			astro.dy = 0;
 		}
 		if(e.getKeyCode() == 37){
-			astro.left = false;
-			astro.dx = 0;
+//			astro.left = false;
+//			astro.dx = 0;
 		}
 		if(e.getKeyCode() == 39){
-			astro.right = false;
-			astro.dx = 0;
+//			astro.right = false;
+//			astro.dx = 0;
 		}
 
 	}

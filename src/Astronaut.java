@@ -20,6 +20,7 @@ public class Astronaut {
     public boolean right;
     public boolean down;
     public Rectangle rec;
+    public int ballcarrier = (int)(Math.random()*2);         //an int that defines who has the ball
 
 
     // METHOD DEFINITION SECTION
