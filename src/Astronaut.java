@@ -20,9 +20,8 @@ public class Astronaut {
     public boolean right;
     public boolean down;
     public Rectangle rec;
-    public int ballcarrier = (int)(Math.random()*2);         //an int that defines who has the ball
-
-
+    boolean stillAlive = true;
+    boolean pewpew = false;
     // METHOD DEFINITION SECTION
 
     // Constructor Definition
@@ -51,25 +50,40 @@ public class Astronaut {
     public void move() {
 
         if(up == true){
-            dy = -5;
+            dy = -10;
 //            dx = 0;
         }
         if(down == true){
-            dy = 5;
+            dy = 10;
 //            dx = 0;
         }
         if(left == true){
-            dx = -5;
+            dx = -10;
 //            dy = 0;
         }
         if(right == true){
-            dx = 5;
+            dx = 10;
 //            dy = 0;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
         rec = new Rectangle(xpos, ypos, width, height);
  
+    }
+    public void bounce(){
+        if(xpos>1000){
+            dx=-dx;
+        }
+        if(ypos>700){
+            dy=-dy;
+        }
+        if(xpos<0){
+            dx=-dx;
+        }
+        if(ypos<0){
+            dy=-dy;
+        }
+        rec = new Rectangle(xpos, ypos, width, height);
     }
 }
 
