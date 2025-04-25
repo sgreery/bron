@@ -8,8 +8,8 @@ public class Astronaut {
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
     public String name;                //holds the name of the hero
-    public int xpos;                //the x position
-    public int ypos;                //the y position
+    public double xpos;                //the x position
+    public double ypos;                //the y position
     public int dx;                    //the speed of the hero in the x direction
     public int dy;                    //the speed of the hero in the y direction
     public int width;
@@ -22,6 +22,8 @@ public class Astronaut {
     public Rectangle rec;
     boolean stillAlive = true;
     boolean pewpew = false;
+    int dist = 1000000000;
+    boolean powered;
     // METHOD DEFINITION SECTION
 
     // Constructor Definition
@@ -42,7 +44,7 @@ public class Astronaut {
         down= false;
         left = false;
         right = false;
-        rec = new Rectangle(xpos, ypos, width, height);
+        rec = new Rectangle((int) xpos, (int) ypos, width, height);
  
     } // constructor
 
@@ -67,7 +69,7 @@ public class Astronaut {
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
-        rec = new Rectangle(xpos, ypos, width, height);
+        rec = new Rectangle((int) xpos, (int) ypos, width, height);
  
     }
     public void bounce(){
@@ -83,7 +85,7 @@ public class Astronaut {
         if(ypos<0){
             dy=-dy;
         }
-        rec = new Rectangle(xpos, ypos, width, height);
+        rec = new Rectangle((int) xpos, (int) ypos, width, height);
     }
 }
 

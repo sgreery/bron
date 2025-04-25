@@ -125,6 +125,10 @@ Astronaut [] astronautsArray = new Astronaut[10];
 
 	}
 	public void collisions(){
+		if (astro.powered){
+			shooter();
+		}
+
 		for(int b = 0; b< astronautsArray.length; b++){
 			if(astro.rec.intersects(astronautsArray[b].rec)){
 				System.out.println("crashing ");
@@ -133,7 +137,24 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		}
 		if(astro.rec.intersects(powerUp.rec)){
 			astro.pewpew = true;
+			astro.powered = true;
+
 		}
+	}
+	public void shooter(){
+		for(int x = 0; x<astronautsArray.length; x++){
+			double equaish1 = astro.xpos-astronautsArray[x].xpos;
+			equaish1 = equaish1*equaish1;
+			double equaish2 = astro.ypos-astronautsArray[x].ypos;
+			equaish2 = equaish2*equaish2;
+			double equaish3 = equaish1 + equaish2;
+			double equaish4 = Math.sqrt(equaish3);
+			if(equaish4 < astro.dist){
+				astro.dist = (int) equaish4;
+			}
+
+		}
+
 	}
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
@@ -189,11 +210,11 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		if(astro.stillAlive){
 			g.drawImage(background, 0, 0, WIDTH, HEIGHT,null);
 		}
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-		g.drawImage(gunPowerUp, powerUp.xpos, powerUp.ypos, powerUp.width, powerUp.height, null);
+		g.drawImage(astroPic, (int) astro.xpos, (int) astro.ypos, astro.width, astro.height, null);
+		g.drawImage(gunPowerUp, (int) powerUp.xpos, (int) powerUp.ypos, powerUp.width, powerUp.height, null);
 		//step 4: render astro array
 		for(int z = 0; z < astronautsArray.length; z++){
-			g.drawImage(zrichpic, astronautsArray[z].xpos, astronautsArray[z].ypos, astro.width, astro.height, null);
+			g.drawImage(zrichpic, (int) astronautsArray[z].xpos, (int) astronautsArray[z].ypos, astro.width, astro.height, null);
 		}
 		if(!astro.stillAlive){
 			g.drawImage(endScreen, 0, 0, WIDTH, HEIGHT,null);
