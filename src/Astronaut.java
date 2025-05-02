@@ -24,6 +24,8 @@ public class Astronaut {
     boolean pewpew = false;
     int dist = 1000000000;
     boolean powered;
+    int closestguy;
+    boolean shot = false;
     // METHOD DEFINITION SECTION
 
     // Constructor Definition

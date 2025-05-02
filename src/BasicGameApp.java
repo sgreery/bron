@@ -77,11 +77,11 @@ Astronaut [] astronautsArray = new Astronaut[10];
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
 		astro = new Astronaut(10,10);
-		powerUp = new Astronaut((int)(Math.random()*900)+100,(int)(Math.random()*600)+100);
+		powerUp = new Astronaut(500,500);
 		gunPowerUp = Toolkit.getDefaultToolkit().getImage("gunpowerup.png");
 		endScreen = Toolkit.getDefaultToolkit().getImage("endscreen.png");
 		for(int x = 0; x< astronautsArray.length; x++){
-			astronautsArray[x] = new Astronaut((int)(Math.random()*1000),(int)(Math.random()*700));
+			astronautsArray[x] = new Astronaut((int)(Math.random()*900)+100,(int)(Math.random()*600)+100);
 			astronautsArray[x].dx = (int)(Math.random()*10);
 			astronautsArray[x].dy = 5;
 		}
@@ -142,18 +142,20 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		}
 	}
 	public void shooter(){
-		for(int x = 0; x<astronautsArray.length; x++){
-			double equaish1 = astro.xpos-astronautsArray[x].xpos;
-			equaish1 = equaish1*equaish1;
-			double equaish2 = astro.ypos-astronautsArray[x].ypos;
-			equaish2 = equaish2*equaish2;
+		for(int x = 0; x<astronautsArray.length; x++) {
+			double equaish1 = astro.xpos - astronautsArray[x].xpos;
+			equaish1 = equaish1 * equaish1;
+			double equaish2 = astro.ypos - astronautsArray[x].ypos;
+			equaish2 = equaish2 * equaish2;
 			double equaish3 = equaish1 + equaish2;
 			double equaish4 = Math.sqrt(equaish3);
-			if(equaish4 < astro.dist){
+			if (equaish4 < astro.dist) {
 				astro.dist = (int) equaish4;
+				astro.closestguy = x;
 			}
 
 		}
+
 
 	}
 	
@@ -210,8 +212,10 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		if(astro.stillAlive){
 			g.drawImage(background, 0, 0, WIDTH, HEIGHT,null);
 		}
+		if(astro.powered == false){
+			g.drawImage(gunPowerUp, (int) powerUp.xpos, (int) powerUp.ypos, powerUp.width, powerUp.height, null);
+		}
 		g.drawImage(astroPic, (int) astro.xpos, (int) astro.ypos, astro.width, astro.height, null);
-		g.drawImage(gunPowerUp, (int) powerUp.xpos, (int) powerUp.ypos, powerUp.width, powerUp.height, null);
 		//step 4: render astro array
 		for(int z = 0; z < astronautsArray.length; z++){
 			g.drawImage(zrichpic, (int) astronautsArray[z].xpos, (int) astronautsArray[z].ypos, astro.width, astro.height, null);
@@ -236,10 +240,14 @@ Astronaut [] astronautsArray = new Astronaut[10];
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 		System.out.println("Pressed");
 		System.out.println(e.getKeyChar());
 		System.out.println(e.getKeyCode());
 		//hw: Identify the key codes for up, down, left, and right arrow keys.
+		if(e.getKeyCode() == 16 && astro.powered){
+			astro.shot == true;
+		}
 		if(e.getKeyCode() == 38){
 			System.out.println("Going up");
 			astro.left = false;
