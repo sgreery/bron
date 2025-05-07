@@ -155,6 +155,11 @@ Astronaut [] astronautsArray = new Astronaut[10];
 			}
 
 		}
+		if(astro.shot == true){
+			astronautsArray[astro.closestguy].zrichpic = "explosion.png";
+
+
+		}
 
 
 	}
@@ -218,7 +223,7 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		g.drawImage(astroPic, (int) astro.xpos, (int) astro.ypos, astro.width, astro.height, null);
 		//step 4: render astro array
 		for(int z = 0; z < astronautsArray.length; z++){
-			g.drawImage(zrichpic, (int) astronautsArray[z].xpos, (int) astronautsArray[z].ypos, astro.width, astro.height, null);
+				g.drawImage(zrichpic, (int) astronautsArray[z].xpos, (int) astronautsArray[z].ypos, astro.width, astro.height, null);
 		}
 		if(!astro.stillAlive){
 			g.drawImage(endScreen, 0, 0, WIDTH, HEIGHT,null);
@@ -245,8 +250,8 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		System.out.println(e.getKeyChar());
 		System.out.println(e.getKeyCode());
 		//hw: Identify the key codes for up, down, left, and right arrow keys.
-		if(e.getKeyCode() == 16 && astro.powered){
-			astro.shot == true;
+		if(e.getKeyCode() == 47 && astro.powered){
+			astro.shot = true;
 		}
 		if(e.getKeyCode() == 38){
 			System.out.println("Going up");
