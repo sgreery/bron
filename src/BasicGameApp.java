@@ -47,11 +47,13 @@ public class BasicGameApp implements Runnable, KeyListener {
 	public Image background;
 	public Image endScreen;
 	public Image gunPowerUp;
+	public Image deadPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	private Astronaut astro;
 	private Astronaut powerUp;
+	private Astronaut xMark;
 
 	//step 1:make astro array and say how big it is
 Astronaut [] astronautsArray = new Astronaut[10];
@@ -74,7 +76,7 @@ Astronaut [] astronautsArray = new Astronaut[10];
       setUpGraphics();
        
       //variable and objects
-      //create (construct) the objects needed for the game and load up 
+      //create (construct) the objects needed for the game and load up
 		astroPic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
 		astro = new Astronaut(10,10);
 		powerUp = new Astronaut(500,500);
@@ -88,6 +90,8 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		zrichpic = Toolkit.getDefaultToolkit().getImage("zrich.png"); //load the picture
 
 		background = Toolkit.getDefaultToolkit().getImage("bronincar.jpg"); //load the picture
+		deadPic = Toolkit.getDefaultToolkit().getImage("x.png"); //load the picture
+		xMark = new Astronaut(10, 10);
 
 
 	}// BasicGameApp()
@@ -117,11 +121,29 @@ Astronaut [] astronautsArray = new Astronaut[10];
       //calls the move( ) code in the objects
 		astro.move();
 		//step 3: move astro array
-		for(int y=0; y< astronautsArray.length; y++){
-			astronautsArray[y].move();
-			astronautsArray[y].bounce();
-		}
+//		for(int y=0; y< astronautsArray.length; y++){
+//			astronautsArray[y].move();
+//			astronautsArray[y].bounce();
+//		}
 		collisions();
+		astro.randNum = (int) (Math.random()*2);
+		if(astro.randNum == 0){
+			astro.BorW = false;
+		}
+		if(astro.randNum == 1){
+			astro.BorW = true;
+		}
+		for(int x=0; x<astronautsArray.length; x++){
+			if(astronautsArray[x].BorW == true){
+				astronautsArray[x].move();
+				astronautsArray[x].bounce();
+			}
+			else if(astronautsArray[x].BorW == false){
+				astronautsArray[x].move();
+				astronautsArray[x].wrap();
+			}
+
+		}
 
 	}
 	public void collisions(){
@@ -156,9 +178,13 @@ Astronaut [] astronautsArray = new Astronaut[10];
 
 		}
 		if(astro.shot == true){
-			astronautsArray[astro.closestguy].zrichpic = "explosion.png";
-
-
+			astronautsArray[astro.closestguy].dy = 0;
+			astronautsArray[astro.closestguy].dx = 0;
+			astronautsArray[astro.closestguy].gotShot = true;
+			astro.shot = false;
+			astro.powered = false;
+			astro.pewpew = false;
+			astro.dist =  100000;
 		}
 
 
@@ -228,6 +254,10 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		if(!astro.stillAlive){
 			g.drawImage(endScreen, 0, 0, WIDTH, HEIGHT,null);
 		}
+		if(astro.gotShot = true){
+			g.drawImage(endScreen, 0, 0, WIDTH, HEIGHT,null);
+		}
+		if(astro.)
 
 
 

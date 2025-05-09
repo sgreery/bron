@@ -26,6 +26,9 @@ public class Astronaut {
     boolean powered;
     int closestguy;
     boolean shot = false;
+    boolean BorW = false;
+    int randNum;
+    boolean gotShot;
 
     // METHOD DEFINITION SECTION
 
@@ -87,6 +90,28 @@ public class Astronaut {
         }
         if(ypos<0){
             dy=-dy;
+        }
+        rec = new Rectangle((int) xpos, (int) ypos, width, height);
+    }
+    public void wrap(){
+        if (xpos>1000){
+            xpos=xpos-1000;
+
+        }
+        if (ypos>700){
+            ypos=ypos-700;
+
+        }
+        if (xpos<0){
+            xpos=xpos+900;
+
+
+        }
+        if (ypos<0){
+            ypos=ypos+600;
+
+
+
         }
         rec = new Rectangle((int) xpos, (int) ypos, width, height);
     }
