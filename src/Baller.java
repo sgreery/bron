@@ -3,7 +3,7 @@ import java.awt.*;
 /**
  * Created by chales on 11/6/2017.
  */
-public class Astronaut {
+public class Baller {
 
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
@@ -15,20 +15,17 @@ public class Astronaut {
     public int width;
     public int height;
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
-    public boolean left;
+    public boolean left; //whether the player moves left, right, up, down
     public boolean up;
     public boolean right;
     public boolean down;
-    public Rectangle rec;
-    boolean stillAlive = true;
-    boolean pewpew = false;
-    int dist = 1000000000;
-    boolean powered;
-    int closestguy;
-    boolean shot = false;
-    boolean BorW = false;
-    int randNum;
-    boolean gotShot;
+    public Rectangle rec; //adds rectangles to each entity to enable reactions for collisions
+    boolean stillAlive = true; //test if the player hasn't been killed
+    int dist = 1000000000; //the distance to the closest opponent
+    boolean powered; //test if the player has gotten the power up
+    int closestguy; //decides which opponent from the array is closest
+    boolean shot = false; //if the player has shot
+    int randNum; //random number to determine between bouncing or wrapping
 
     // METHOD DEFINITION SECTION
 
@@ -38,7 +35,7 @@ public class Astronaut {
 
     //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
     // if you put in a String, an int and an int the program will use this constructor instead of the one above.
-    public Astronaut(int pXpos, int pYpos) {
+    public Baller(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
         dx =0;
@@ -78,7 +75,7 @@ public class Astronaut {
         rec = new Rectangle((int) xpos, (int) ypos, width, height);
  
     }
-    public void bounce(){
+    public void bounce(){ //bounce method flips the character's dx when hitting side borders and flips the character's dy when hitting the vertical borders.
         if(xpos>1000){
             dx=-dx;
         }
@@ -93,7 +90,7 @@ public class Astronaut {
         }
         rec = new Rectangle((int) xpos, (int) ypos, width, height);
     }
-    public void wrap(){
+    public void wrap(){ //sends character to other side of the screen
         if (xpos>1000){
             xpos=xpos-1000;
 

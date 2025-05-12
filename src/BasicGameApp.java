@@ -42,7 +42,7 @@ public class BasicGameApp implements Runnable, KeyListener {
    public JPanel panel;
    
 	public BufferStrategy bufferStrategy;
-	public Image astroPic;
+	public Image bronnnypic;
 	public Image zrichpic;
 	public Image background;
 	public Image endScreen;
@@ -51,12 +51,11 @@ public class BasicGameApp implements Runnable, KeyListener {
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Astronaut astro;
-	private Astronaut powerUp;
-	private Astronaut xMark;
+	private Baller bronny;
+	private Baller powerUp;
 
-	//step 1:make astro array and say how big it is
-Astronaut [] astronautsArray = new Astronaut[10];
+	//step 1:make opponent array and say how big it is
+	Baller [] opponentArray = new Baller[10];
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -77,21 +76,20 @@ Astronaut [] astronautsArray = new Astronaut[10];
        
       //variable and objects
       //create (construct) the objects needed for the game and load up
-		astroPic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
-		astro = new Astronaut(10,10);
-		powerUp = new Astronaut(500,500);
+		bronnnypic = Toolkit.getDefaultToolkit().getImage("bronny.png"); //load the picture
+		bronny = new Baller(10,10);
+		powerUp = new Baller(500,500);
 		gunPowerUp = Toolkit.getDefaultToolkit().getImage("gunpowerup.png");
 		endScreen = Toolkit.getDefaultToolkit().getImage("endscreen.png");
-		for(int x = 0; x< astronautsArray.length; x++){
-			astronautsArray[x] = new Astronaut((int)(Math.random()*900)+100,(int)(Math.random()*600)+100);
-			astronautsArray[x].dx = (int)(Math.random()*10);
-			astronautsArray[x].dy = 5;
+		for(int x = 0; x< opponentArray.length; x++){
+			opponentArray[x] = new Baller((int)(Math.random()*800)+200,(int)(Math.random()*500)+200);
+			opponentArray[x].dx = (int)(Math.random()*10);
+			opponentArray[x].dy = 5;
 		}
 		zrichpic = Toolkit.getDefaultToolkit().getImage("zrich.png"); //load the picture
 
 		background = Toolkit.getDefaultToolkit().getImage("bronincar.jpg"); //load the picture
 		deadPic = Toolkit.getDefaultToolkit().getImage("x.png"); //load the picture
-		xMark = new Astronaut(10, 10);
 
 
 	}// BasicGameApp()
@@ -119,72 +117,64 @@ Astronaut [] astronautsArray = new Astronaut[10];
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		astro.move();
-		//step 3: move astro array
-//		for(int y=0; y< astronautsArray.length; y++){
-//			astronautsArray[y].move();
-//			astronautsArray[y].bounce();
-//		}
+		bronny.move();
 		collisions();
-		astro.randNum = (int) (Math.random()*2);
-		if(astro.randNum == 0){
-			astro.BorW = false;
+		for(int x = 0; x< opponentArray.length; x++){ //setting a random number which will determine whether each opponent bounces or moves.
+			opponentArray[x].randNum = (int) (Math.random()*2);
 		}
-		if(astro.randNum == 1){
-			astro.BorW = true;
-		}
-		for(int x=0; x<astronautsArray.length; x++){
-			if(astronautsArray[x].BorW == true){
-				astronautsArray[x].move();
-				astronautsArray[x].bounce();
+		for(int x = 0; x< opponentArray.length; x++){
+			if(opponentArray[x].randNum == 0){
+				opponentArray[x].move();
+				opponentArray[x].bounce();
 			}
-			else if(astronautsArray[x].BorW == false){
-				astronautsArray[x].move();
-				astronautsArray[x].wrap();
+			else if(opponentArray[x].randNum == 1){
+				opponentArray[x].move();
+				opponentArray[x].wrap();
 			}
 
 		}
 
 	}
 	public void collisions(){
-		if (astro.powered){
+		if (bronny.powered){ //enabling the shooter method when the player gets the power up
 			shooter();
 		}
 
-		for(int b = 0; b< astronautsArray.length; b++){
-			if(astro.rec.intersects(astronautsArray[b].rec)){
+		for(int b = 0; b< opponentArray.length; b++){ //if bronny intersects with the opponent, set bronny.stillAlive to false
+			if(bronny.rec.intersects(opponentArray[b].rec)){
 				System.out.println("crashing ");
-				astro.stillAlive = false;
+				bronny.stillAlive = false;
 			}
 		}
-		if(astro.rec.intersects(powerUp.rec)){
-			astro.pewpew = true;
-			astro.powered = true;
+		if(bronny.rec.intersects(powerUp.rec)){ //gives bronny powers when he touches the power up
+
+			bronny.powered = true;
 
 		}
+
 	}
 	public void shooter(){
-		for(int x = 0; x<astronautsArray.length; x++) {
-			double equaish1 = astro.xpos - astronautsArray[x].xpos;
+		for(int x = 0; x< opponentArray.length; x++) {
+			double equaish1 = bronny.xpos - opponentArray[x].xpos;
 			equaish1 = equaish1 * equaish1;
-			double equaish2 = astro.ypos - astronautsArray[x].ypos;
+			double equaish2 = bronny.ypos - opponentArray[x].ypos;
 			equaish2 = equaish2 * equaish2;
 			double equaish3 = equaish1 + equaish2;
 			double equaish4 = Math.sqrt(equaish3);
-			if (equaish4 < astro.dist) {
-				astro.dist = (int) equaish4;
-				astro.closestguy = x;
+			//this entire previous segment is basically using the distance formula to figure out how far each opponent is away.
+			if (equaish4 < bronny.dist) { //determines if the previously determined distance is the smallest and if so takes note of which astronaut it is.
+				bronny.dist = (int) equaish4;
+				bronny.closestguy = x;
 			}
 
 		}
-		if(astro.shot == true){
-			astronautsArray[astro.closestguy].dy = 0;
-			astronautsArray[astro.closestguy].dx = 0;
-			astronautsArray[astro.closestguy].gotShot = true;
-			astro.shot = false;
-			astro.powered = false;
-			astro.pewpew = false;
-			astro.dist =  100000;
+		if(bronny.shot == true){ //when bronny shoots, the closest guy stops before bronny loses his powers.
+			opponentArray[bronny.closestguy].dy = 0;
+			opponentArray[bronny.closestguy].dx = 0;
+			bronny.shot = false;
+			bronny.powered = false;
+
+			bronny.dist =  100000;
 		}
 
 
@@ -239,25 +229,21 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
-      //draw the image of the astronaut
-		if(astro.stillAlive){
+      //draw the image of the background, the power up, bronny, the opponents, and the end screen.
+		if(bronny.stillAlive){
 			g.drawImage(background, 0, 0, WIDTH, HEIGHT,null);
 		}
-		if(astro.powered == false){
+		if(bronny.powered == false){
 			g.drawImage(gunPowerUp, (int) powerUp.xpos, (int) powerUp.ypos, powerUp.width, powerUp.height, null);
 		}
-		g.drawImage(astroPic, (int) astro.xpos, (int) astro.ypos, astro.width, astro.height, null);
-		//step 4: render astro array
-		for(int z = 0; z < astronautsArray.length; z++){
-				g.drawImage(zrichpic, (int) astronautsArray[z].xpos, (int) astronautsArray[z].ypos, astro.width, astro.height, null);
+		g.drawImage(bronnnypic, (int) bronny.xpos, (int) bronny.ypos, bronny.width, bronny.height, null);
+		//step 4: render bronny array
+		for(int z = 0; z < opponentArray.length; z++){
+				g.drawImage(zrichpic, (int) opponentArray[z].xpos, (int) opponentArray[z].ypos, bronny.width, bronny.height, null);
 		}
-		if(!astro.stillAlive){
+		if(!bronny.stillAlive){
 			g.drawImage(endScreen, 0, 0, WIDTH, HEIGHT,null);
 		}
-		if(astro.gotShot = true){
-			g.drawImage(endScreen, 0, 0, WIDTH, HEIGHT,null);
-		}
-		if(astro.)
 
 
 
@@ -280,75 +266,70 @@ Astronaut [] astronautsArray = new Astronaut[10];
 		System.out.println(e.getKeyChar());
 		System.out.println(e.getKeyCode());
 		//hw: Identify the key codes for up, down, left, and right arrow keys.
-		if(e.getKeyCode() == 47 && astro.powered){
-			astro.shot = true;
+		if(e.getKeyCode() == 47 && bronny.powered){
+			bronny.shot = true;
 		}
-		if(e.getKeyCode() == 38){
+		if(e.getKeyCode() == 38){ //when the up key is pressed, bronny goes up
 			System.out.println("Going up");
-			astro.left = false;
-			astro.right = false;
-			astro.down = false;
-			astro.up = true;
+			bronny.left = false;
+			bronny.right = false;
+			bronny.down = false;
+			bronny.up = true;
 		}
-		if(e.getKeyCode() == 37){
+		if(e.getKeyCode() == 37){ //when the left key is pressed, bronny goes left
 			System.out.println("Going left");
-			astro.left = true;
+			bronny.left = true;
 		}
 		if(e.getKeyCode() == 39){
-			System.out.println("Going right");
-			astro.right = true;
-			astro.left = false;
-			astro.up = false;
-			astro.down = false;
+			System.out.println("Going right"); //when the right key is pressed, bronny goes right
+			bronny.right = true;
+			bronny.left = false;
+			bronny.up = false;
+			bronny.down = false;
 
 
 		}
-		if(e.getKeyCode() == 40){
+		if(e.getKeyCode() == 40){ //when the down key is pressed, bronny goes down
 			System.out.println("Going down");
-			astro.down = true;
-			astro.left = false;
-			astro.right = false;
-			astro.up = false;
+			bronny.down = true;
+			bronny.left = false;
+			bronny.right = false;
+			bronny.up = false;
 
 		}
-		if(astro.up == true && astro.left == true){
-			astro.dx = -5;
-			astro.dy = -5;
+		if(bronny.up == true && bronny.left == true){ //making diagonals
+			bronny.dx = -5;
+			bronny.dy = -5;
 
 		}
-		if(astro.down == true && astro.left == true){
-			astro.dx = -5;
-			astro.dy = 5;
+		if(bronny.down == true && bronny.left == true){
+			bronny.dx = -5;
+			bronny.dy = 5;
 
 		}
 
-		if(e.getKeyCode() == 83){
-			astro.up = false;
-			astro.down = false;
-			astro.left = false;
-			astro.right = false;
-		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		System.out.println("released");
 		System.out.println(e.getKeyCode());
-		if(e.getKeyCode() == 38){
-			astro.up = false;
-			astro.dy = 0;
+		if(e.getKeyCode() == 38){ //stopping bronny when the key is no longer pressed
+			bronny.up = false;
+			bronny.dy = 0;
 		}
 		if(e.getKeyCode() == 40){
-			astro.down = false;
-			astro.dy = 0;
+			bronny.down = false;
+			bronny.dy = 0;
 		}
 		if(e.getKeyCode() == 37){
-			astro.left = false;
-			astro.dx = 0;
+			bronny.left = false;
+			bronny.dx = 0;
 		}
 		if(e.getKeyCode() == 39){
-			astro.right = false;
-			astro.dx = 0;
+			bronny.right = false;
+			bronny.dx = 0;
 		}
 
 	}
